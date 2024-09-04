@@ -1,0 +1,76 @@
+# version: '3.9'
+
+# services:
+#   backend-java:
+#     build: 
+#       context: ./molsys-backend
+#     restart: always
+#     networks:
+#       - mynetwork
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:mysql://molsysdatabase.crakl3ekhs4c.us-east-1.rds.amazonaws.com:3306/fullstack
+#       SPRING_DATASOURCE_USERNAME: root
+#       SPRING_DATASOURCE_PASSWORD: Molsys123
+#     extra_hosts:
+#       - "host.docker.internal:host-gateway"
+#     ports:
+#       - "8080:8080"  # Expose port 8080
+     
+
+
+#   web:
+#     build:
+#       context: ./molsys-ui
+#     restart: always
+#     image: molsys-ui
+#     depends_on:
+#       - backend-java
+#     env_file:
+#       - molsys-ui/.env
+#     ports:
+#       - "80:80"
+#       - "443:443"
+#     networks:
+#       - mynetwork
+
+# networks:
+#   mynetwork:
+#     driver: bridge
+
+
+version: '3.9'
+
+services:
+  backend-java:
+    build: 
+      context: ./molsys-backend
+    restart: always
+    networks:
+      - mynetwork
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://molsysdatabase.crakl3ekhs4c.us-east-1.rds.amazonaws.com:3306/fullstack
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Molsys123
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8080:8080"  # Expose port 8080
+
+  web:
+    build:
+      context: ./molsys-ui
+    restart: always
+    image: molsys-ui
+    depends_on:
+      - backend-java
+    env_file:
+      - molsys-ui/.env
+    ports:
+      - "80:80"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
